@@ -5,21 +5,31 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public class Controller {
 
   @FXML
   private Button viewAllContactsButton;
 
-
-
   @FXML
   private Button exitButton;
 
   @FXML
   private Button addContactsButton;
+
+  @FXML
+  private Button chooseProfileButton;
 
   @FXML
   void handleAddContactsButton(ActionEvent event) {
@@ -64,6 +74,25 @@ public class Controller {
       System.out.println(e.getMessage());
     }
 
+  }
+
+  @FXML
+  void handlechooseProfileButton(ActionEvent event){
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Choose Profile Picture");
+    fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+    );
+
+    File selectedFile = fileChooser.showOpenDialog(chooseProfileButton.getScene().getWindow());
+    if(selectedFile != null){
+      Path dest = Paths.get("profile_pics",selectedFile.getName());
+      try{
+        Files.copy(selectedFile.toPath(),dest, StandardCopyOption.REPLACE_EXISTING);
+      }catch (IOException e){
+        e.printStackTrace();
+      }
+    }
   }
 
 }
