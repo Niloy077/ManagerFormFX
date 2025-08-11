@@ -31,6 +31,7 @@ public class DetailViewController {
 
     @FXML
     void handleCloseDetailView(ActionEvent event) {
+        System.out.println("Close Button.");
 
     }
 

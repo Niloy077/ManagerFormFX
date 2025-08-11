@@ -7,11 +7,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.util.*;
+import java.io.File;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,11 +67,14 @@ public class addContactController {
 
   private ArrayList<Person> personDataBase;
 
+
   //Observable list is an interface and it defines a certain methods
   private ObservableList<Integer> dayObservableList;
   private ObservableList<Month> monthObservableList;
   private ObservableList<Integer> yearObservableList;
 
+  //keep track of choosen profile pic
+  private String profilePhotoPath = null;
   @FXML
   void initialize(){
     //System.out.println("initial");
@@ -83,7 +90,7 @@ public class addContactController {
     );
 
     ArrayList<Integer> years = new ArrayList<>();
-    for (int year = 1900;year<=2050;year++){
+    for (int year = 1930;year<=2050;year++){
       years.add(year);
     }
 
@@ -193,6 +200,7 @@ public class addContactController {
     String mobileNumber = this.moblileNumberTextField.getText();
     String address = this.addressTextField.getText();
     String emailAddress = this.emailtextfield.getText();
+    String pathToProfilePhoto = this.profilePhotoPath;
 
     Integer day = this.daySelectionComboBox.getSelectionModel().getSelectedItem();
     Month month = this.monthSelectionComboBox.getSelectionModel().getSelectedItem();
@@ -200,7 +208,7 @@ public class addContactController {
 
 
     try {
-      Person newPerson = new Person(firstName,surname,mobileNumber,address,day,month,year,emailAddress);
+      Person newPerson = new Person(firstName,surname,mobileNumber,address,day,month,year,emailAddress,pathToProfilePhoto);
       System.out.println(newPerson);
       this.personDataBase.add(newPerson);
       //FileOperations.writeToFile("C:\\Users\\Administrator\\IdeaProjects\\TestjavaFx\\src\\database.txt",this.personDataBase);
@@ -234,6 +242,16 @@ public class addContactController {
 
   @FXML
   void handlechooseProfileButton(ActionEvent event) {
+//    System.out.println("pfrofile.");
+    FileChooser fileChooser = new FileChooser();
+    Stage primaryStage = (Stage)this.chooseProfileButton.getScene().getWindow();
+    File selectedfile = fileChooser.showOpenDialog(primaryStage);
+
+    if(selectedfile != null){
+      String selectedFilePath = selectedfile.toURI().getPath();
+      this.profilePhotoPath = selectedFilePath;
+      System.out.println(selectedFilePath);
+    }
 
   }
 

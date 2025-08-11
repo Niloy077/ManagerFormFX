@@ -13,9 +13,9 @@ public class Person {
   private final UUID id;//UUID = universally unique identifier
   private String firstName,surname,emailAddress,address;
   private LocalDate dateOfBirth;
-  private String mobileNumber;
+  private String mobileNumber,pathToProfilePhoto;
 
-  public Person(String firstName, String surname,String mobileNumber,String address, Integer day, Month month,Integer year,String emailAddress) throws Exception{
+  public Person(String firstName, String surname,String mobileNumber,String address, Integer day, Month month,Integer year,String emailAddress,String pathToProfilePicture) throws Exception{
     this.id = UUID.randomUUID();
     this.setFirstName(firstName);
     this.setSurname(surname);
@@ -24,6 +24,12 @@ public class Person {
     this.setEmailAddress(emailAddress);
     this.setDateOfBirth(day,month,year);
     this.setEmailAddress(emailAddress);
+    this.pathToProfilePhoto(pathToProfilePicture);
+  }
+
+  private void pathToProfilePhoto(String pathToProfilePicture) throws Exception{
+    PersonValidator.validateProfilePhoto(pathToProfilePhoto);
+    this.pathToProfilePhoto = pathToProfilePicture;
   }
 
   public String getAddress() {
@@ -45,7 +51,6 @@ public class Person {
   }
 
   public String getEmailAddress() {
-
     return emailAddress;
   }
 
@@ -76,7 +81,8 @@ public class Person {
     this.surname = surname;
   }
 
-//  public void setGender(String gender) throws Exception{
+
+  //  public void setGender(String gender) throws Exception{
 //    PersonValidator.validateGender(gender);
 //    this.gender = gender;
 //  }
