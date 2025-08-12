@@ -28,7 +28,7 @@ public class Person {
   }
 
   private void pathToProfilePhoto(String pathToProfilePicture) throws Exception{
-    PersonValidator.validateProfilePhoto(pathToProfilePhoto);
+    PersonValidator.validateProfilePhoto(pathToProfilePicture);
     this.pathToProfilePhoto = pathToProfilePicture;
   }
 

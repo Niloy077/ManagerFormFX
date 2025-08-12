@@ -1,6 +1,5 @@
 package ValidationalLogic;
 
-import java.io.File;
 import java.time.LocalDate;
 
 /**
@@ -8,31 +7,12 @@ import java.time.LocalDate;
  */
 public class PersonValidator {
 
-  public static void validateProfilePhoto(String pathtoprofilePhoto) throws Exception {
-    if (pathtoprofilePhoto == null || pathtoprofilePhoto.isEmpty()) {
+  public static void validateProfilePhoto(String pathtoprofilePhoto) throws Exception{
+    if(pathtoprofilePhoto.isEmpty()){
       throw new IllegalArgumentException("Picture path is empty.");
     }
-
-    File file = new File(pathtoprofilePhoto);
-
-    if (!file.exists()) {
-      throw new java.io.FileNotFoundException("Profile photo file does not exist.");
-    }
-
-    if (!file.isFile()) {
-      throw new IllegalArgumentException("Path does not point to a file.");
-    }
-
-    if (!file.canRead()) {
-      throw new SecurityException("Profile photo file cannot be read.");
-    }
-
-    // Optional: check extension for image files only
-    String lowerPath = pathtoprofilePhoto.toLowerCase();
-    if (!(lowerPath.endsWith(".jpg") || lowerPath.endsWith(".jpeg") || lowerPath.endsWith(".png"))) {
-      throw new IllegalArgumentException("Invalid file type. Only JPG or PNG images are allowed.");
-    }
   }
+
   public static void validateName(String name) throws Exception{
     if(name.isEmpty()){
       throw new IllegalArgumentException("Name should not be empty.");

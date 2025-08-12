@@ -7,10 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -19,7 +18,6 @@ import java.io.File;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 public class addContactController {
 
   @FXML
@@ -59,6 +57,13 @@ public class addContactController {
   private Button goBackButton1;
   @FXML
   private Button viewSlectedItem;
+
+
+  @FXML
+  private Button clearFormButton;
+
+  @FXML
+  private ImageView chosenProfileImage;
 
   @FXML
   private ListView<Person> listView1;
@@ -103,33 +108,38 @@ public class addContactController {
     this.yearSelectionComboBox.setItems(this.yearObservableList);
 
     this.monthSelectionComboBox
-      .getSelectionModel()
-      .selectedItemProperty()
-      .addListener((observable, oldValue, newValue) -> {
-        ArrayList<Integer> _days = new ArrayList<>();
-        switch (newValue) {
-          case JANUARY:
-          case MARCH:
-          case MAY:
-            for (int day = 0; day <= 31; day++) {
-              _days.add(day);
-            }
-            this.dayObservableList = FXCollections.observableArrayList(_days);
-            this.daySelectionComboBox.setItems(this.dayObservableList);
-            break;
+            .getSelectionModel()
+            .selectedItemProperty()
+            .addListener((observable, oldValue, newValue) -> {
+              if (newValue == null) {
+                // maybe clear the day combo box too
+                daySelectionComboBox.getItems().clear();
+                return; // exit early
+              }
 
-          case FEBRUARY:
-            for (int day = 0; day <= 29; day++) {
-              _days.add(day);
-            }
-            this.dayObservableList = FXCollections.observableArrayList(_days);
-            this.daySelectionComboBox.setItems(this.dayObservableList);
-            break;
-
-          default:
-            break;
-        }
-      });
+              ArrayList<Integer> _days = new ArrayList<>();
+              switch (newValue) {
+                case JANUARY:
+                case MARCH:
+                case MAY:
+                  for (int day = 1; day <= 31; day++) { // also fixed to start at 1
+                    _days.add(day);
+                  }
+                  break;
+                case FEBRUARY:
+                  for (int day = 1; day <= 29; day++) {
+                    _days.add(day);
+                  }
+                  break;
+                default:
+                  for (int day = 1; day <= 30; day++) {
+                    _days.add(day);
+                  }
+                  break;
+              }
+              this.dayObservableList = FXCollections.observableArrayList(_days);
+              this.daySelectionComboBox.setItems(this.dayObservableList);
+            });
 
     //you can read and write files here
 
@@ -242,17 +252,39 @@ public class addContactController {
 
   @FXML
   void handlechooseProfileButton(ActionEvent event) {
-//    System.out.println("pfrofile.");
     FileChooser fileChooser = new FileChooser();
-    Stage primaryStage = (Stage)this.chooseProfileButton.getScene().getWindow();
-    File selectedfile = fileChooser.showOpenDialog(primaryStage);
+    Stage primaryStage = (Stage) this.chooseProfileButton.getScene().getWindow();
+    File selectedFile = fileChooser.showOpenDialog(primaryStage);
 
-    if(selectedfile != null){
-      String selectedFilePath = selectedfile.toURI().getPath();
-      this.profilePhotoPath = selectedFilePath;
-      System.out.println(selectedFilePath);
+    if (selectedFile != null) {
+      this.profilePhotoPath = selectedFile.toURI().toString(); // ✅ safer
+      System.out.println(this.profilePhotoPath);
+
+      Image image = new Image(this.profilePhotoPath);
+      this.chosenProfileImage.setImage(image);
     }
-
   }
+
+  @FXML
+  void handleClearForm(ActionEvent event) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Confirm Clear Form");
+    alert.setHeaderText("Are you sure you want to clear the form?");
+    alert.setContentText("This will erase all entered information.");
+
+    ButtonType yesButton = new ButtonType("Yes");
+    ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+    alert.getButtonTypes().setAll(yesButton, noButton);
+
+    alert.showAndWait().ifPresent(type -> {
+      if (type == yesButton) {
+        resetUI(); // ✅ Your existing method to clear fields
+        chosenProfileImage.setImage(null); // Clear profile image too
+        profilePhotoPath = null;           // Reset photo path
+      }
+    });
+  }
+
 
 }
