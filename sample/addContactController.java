@@ -15,6 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,7 +58,6 @@ public class addContactController {
   private Button goBackButton1;
   @FXML
   private Button viewSlectedItem;
-
 
   @FXML
   private Button clearFormButton;
@@ -159,8 +159,52 @@ public class addContactController {
 
   @FXML
   void handleViewSelectedItem(ActionEvent event) {
+    Person selectedPerson = listView1.getSelectionModel().getSelectedItem();
 
-  }
+    if (selectedPerson == null) {
+      // Optional: Show alert if nothing is selected
+      Alert alert = new Alert(Alert.AlertType.WARNING, "No record selected!", ButtonType.OK);
+      alert.showAndWait();
+      return;
+    }
+
+    firstnameTextField.setText(selectedPerson.getFirstName());
+    surnameTextField.setText(selectedPerson.getSurname());
+    emailtextfield.setText(selectedPerson.getEmailAddress());
+    addressTextField.setText(selectedPerson.getAddress());
+    moblileNumberTextField.setText(selectedPerson.getMobileNumber());
+
+    // Fill date combo boxes
+    LocalDate dob = selectedPerson.getDateOfBirth();
+    if (dob != null) {
+      daySelectionComboBox.setValue(dob.getDayOfMonth());
+      monthSelectionComboBox.setValue(dob.getMonth());
+      yearSelectionComboBox.setValue(dob.getYear());
+    } else {
+      daySelectionComboBox.setValue(null);
+      monthSelectionComboBox.setValue(null);
+      yearSelectionComboBox.setValue(null);
+    }
+
+    // Load and set profile image
+    String imagePath = selectedPerson.getPathToProfilePhoto(); // Assuming your Person class stores it
+    if (imagePath != null && !imagePath.isEmpty()) {
+      try {
+        Image image = new Image(new File(imagePath).toURI().toString());
+        chosenProfileImage.setImage(image);
+        this.profilePhotoPath = imagePath; // <-- store in controller
+      } catch (Exception e) {
+        System.err.println("Could not load image: " + e.getMessage());
+        chosenProfileImage.setImage(null);
+        this.profilePhotoPath = null; // clear it if invalid
+      }
+    } else {
+      chosenProfileImage.setImage(null);
+      this.profilePhotoPath = null;
+    }
+
+
+    }
 
   @FXML
   void handleDeleteButton(ActionEvent event) {
@@ -257,10 +301,10 @@ public class addContactController {
     File selectedFile = fileChooser.showOpenDialog(primaryStage);
 
     if (selectedFile != null) {
-      this.profilePhotoPath = selectedFile.toURI().toString(); // ✅ safer
+      this.profilePhotoPath = selectedFile.getAbsolutePath(); // ✅ safer
       System.out.println(this.profilePhotoPath);
 
-      Image image = new Image(this.profilePhotoPath);
+      Image image = new Image(new File(this.profilePhotoPath).toURI().toString());
       this.chosenProfileImage.setImage(image);
     }
   }

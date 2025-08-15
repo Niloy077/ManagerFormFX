@@ -93,6 +93,14 @@ public class Person {
     this.dateOfBirth = dateOfBirth;
   }
 
+  public String getPathToProfilePhoto() {
+    return pathToProfilePhoto;
+  }
+
+  public LocalDate getDateOfBirth() {
+    return dateOfBirth;
+  }
+
   @Override
   public String toString() {
     return this.id.toString() + ": " + this.firstName;
