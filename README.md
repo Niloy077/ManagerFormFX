@@ -1,32 +1,32 @@
-# ManagerFormFX
+# Contacts Manager
 
-A JavaFX application developed by **Group Theta** to manage and persist data about managers. The application includes a form-based UI with input validation, image capture, and full CRUD functionality (Create, Read, Update, Delete) with persistent storage.
+## Overview
+Contacts Manager is a desktop application built with JavaFX that allows users to manage personal contacts efficiently. Users can **add, view, and delete contacts**, with all information stored securely in a SQLite database. The application features a modern and intuitive UI with multiple views for different functionalities.
 
----
+## Features
+- **Add Contact**
+  - Input fields for First Name, Surname, Mobile Number, Email, Address, and Date of Birth.
+  - Option to select a profile picture.
+  - Form validation ensures correct input formats.
+  - Data is saved to both the **ListView** and the SQLite database.
 
-## 📌 Features
+- **View All Contacts**
+  - Displays all saved contacts in a ListView.
+  - Select a contact to **view detailed information** or **delete** it.
+  - Dynamic updates ensure the list reflects the current database state.
 
-- JavaFX-based GUI for data entry.
-- Input form includes:
-    - ✅ Four Text Fields (e.g., Name, Email, Department, Phone)
-    - 📅 One Date Picker (e.g., Date of Birth)
-    - 📂 One ComboBox (e.g., Manager Type or Gender)
-    - 🖼️ Image Upload Field (Capture/Upload Manager's Picture)
-- Data Validation for all fields with error dialogs.
-- Save data to local storage (file-based persistence).
-- Retrieve data upon reopening the application.
-- View, Edit, and Delete previously saved entries.
-- Display detailed view in a new window for each manager entry.
-- Two or more separate GUI windows for management and detail view.
+- **Detail View**
+  - Shows full contact information including profile picture.
+  - Labels clearly indicate each field (e.g., `First Name: John Doe`).
+  - Close button navigates back to the All Records view.
 
----
+- **Navigation**
+  - Seamless switching between Initial View, Add Contact, All Records, and Detail View.
+  - Smooth transitions with a single application window.
 
-## 🔧 Technology Stack
+- **User Experience**
+  - Prompt text in input fields guides the user.
+  - Focus management prevents unwanted blue outlines on buttons.
+  - Error messages are displayed using alert dialogues.
 
-- **Language:** Java
-- **GUI Framework:** JavaFX
-- **Core Java Concepts Used:**
-    - Object-Oriented Programming (Class, Inheritance, Polymorphism)
-    - Java Collections (e.g., ArrayList)
-    - File I/O (Serialization / Deserialization)
-    - Exception Handling
+## Project Structure

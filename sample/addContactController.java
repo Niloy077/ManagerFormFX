@@ -142,6 +142,13 @@ public class addContactController {
               this.daySelectionComboBox.setItems(this.dayObservableList);
             });
 
+    // Set prompt text for TextFields
+    firstnameTextField.setPromptText("First Name");
+    surnameTextField.setPromptText("Surname");
+    moblileNumberTextField.setPromptText("Mobile Number");
+    emailtextfield.setPromptText("Email Address");
+    addressTextField.setPromptText("Address");
+
     //you can read and write files here
 
 //    try {
