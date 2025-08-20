@@ -1,5 +1,6 @@
 package sample;
 
+import DataBase.DatabaseHelper;
 import DataBase.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -148,8 +149,8 @@ public class addContactController {
 //    }catch (Exception e){
 //      System.out.println("File not found.");
 //    }
-
-    this.personDataBase = new ArrayList<>();
+    DatabaseHelper db = new DatabaseHelper();
+    this.personDataBase = new ArrayList<>(db.getAllPersons());
 
     //you can initialize list view and table views
     this.personsObservableList = FXCollections.observableArrayList(this.personDataBase);
@@ -206,26 +207,29 @@ public class addContactController {
 
     }
 
+
   @FXML
   void handleDeleteButton(ActionEvent event) {
+    // get selected person
+    Person selectedPerson = this.listView1.getSelectionModel().getSelectedItem();
+    int selectedItemIndex = this.listView1.getSelectionModel().getSelectedIndex();
 
-    //first we need to know which button was selected
-      int selectedItemIndex = this.listView1.getSelectionModel().getSelectedIndex();
-      System.out.println(selectedItemIndex);
+    if (selectedItemIndex != -1 && selectedPerson != null) {
+      // remove from in-memory list
+      this.personDataBase.remove(selectedItemIndex);
+      this.refreshListView();
 
-      if (selectedItemIndex != -1) {
-        this.personDataBase.remove(selectedItemIndex);
-        System.out.println(this.personDataBase);
-        this.refreshListView();
-        //FileOperations.writeToFile("Path",this.personDataBase);
-      }
+      // remove from database
+      DatabaseHelper db = new DatabaseHelper();
+      db.deletePerson(selectedPerson.getId().toString());
 
-      if(selectedItemIndex==-1){
-        Stage primaryStage = (Stage)this.savebutton.getScene().getWindow();
-        viewUtilities.showErrorMessageDialogueBox("Select a field from list to delete.",primaryStage);
-      }
-
+      System.out.println("Deleted: " + selectedPerson.getFirstName());
+    } else {
+      Stage primaryStage = (Stage)this.savebutton.getScene().getWindow();
+      viewUtilities.showErrorMessageDialogueBox("Select a field from list to delete.", primaryStage);
+    }
   }
+
 
   @FXML
   void handleGoBackButtonClick1(ActionEvent event) {
@@ -269,6 +273,10 @@ public class addContactController {
 
       this.refreshListView();
       //this.resetUI();
+
+      //save to database
+      DatabaseHelper db = new DatabaseHelper();
+      db.insertPerson(newPerson);
     }catch (Exception exception){
       Stage primaryStage = (Stage)this.savebutton.getScene().getWindow();
       viewUtilities.showErrorMessageDialogueBox(exception.getMessage(),primaryStage);
