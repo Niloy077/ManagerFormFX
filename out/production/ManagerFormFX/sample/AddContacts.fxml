@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.image.Image?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.addContactController">
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="692.0" StackPane.alignment="CENTER">
+         <children>
+            <VBox layoutX="301.0" layoutY="14.0" prefHeight="36.0" prefWidth="312.0" spacing="12.0">
+               <children>
+                  <Label prefHeight="16.0" prefWidth="389.0" text="FullName" />
+                  <HBox prefHeight="40.0" prefWidth="322.0">
+                     <children>
+                        <TextField fx:id="firstnameTextField" prefHeight="40.0" prefWidth="201.0" style="-fx-border-color: #2994e6;" />
+                        <TextField fx:id="surnameTextField" prefHeight="40.0" prefWidth="224.0" style="-fx-border-color: #2994e6;" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="7.0" />
+               </padding>
+            </VBox>
+            <VBox layoutX="301.0" layoutY="184.0" prefHeight="59.0" prefWidth="339.0" spacing="12.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="412.0" text="Date of Birth (DD/MM/YYYY)" />
+                  <HBox prefHeight="26.0" prefWidth="292.0">
+                     <children>
+                        <ComboBox fx:id="daySelectionComboBox" prefHeight="25.0" prefWidth="98.0" promptText="  Day" style="-fx-border-color: #2994e6;" />
+                        <ComboBox fx:id="monthSelectionComboBox" prefHeight="25.0" prefWidth="124.0" promptText="Month" style="-fx-border-color: #2994e6;" />
+                        <ComboBox fx:id="yearSelectionComboBox" prefHeight="25.0" prefWidth="99.0" promptText="Year" style="-fx-border-color: #2994e6;" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="7.0" />
+               </padding>
+            </VBox>
+            <Button fx:id="savebutton" layoutX="301.0" layoutY="456.0" mnemonicParsing="false" onAction="#handleSaveButtonClick" prefHeight="48.0" prefWidth="112.0" text="Save" />
+            <Button fx:id="deleteButton" layoutX="176.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="48.0" prefWidth="105.0" text="Delete" />
+            <HBox layoutX="311.0" layoutY="88.0" prefHeight="48.0" prefWidth="298.0">
+               <children>
+                  <Label prefHeight="36.0" prefWidth="97.0" text="Mobile Number" />
+                  <TextField fx:id="moblileNumberTextField" style="-fx-border-color: #2994e6;">
+                     <HBox.margin>
+                        <Insets top="8.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="311.0" layoutY="262.0" prefHeight="48.0" prefWidth="298.0">
+               <children>
+                  <Label prefHeight="36.0" prefWidth="97.0" text=" Email Address" />
+                  <TextField fx:id="emailtextfield" style="-fx-border-color: #2994e6;">
+                     <HBox.margin>
+                        <Insets top="8.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="311.0" layoutY="136.0" prefHeight="48.0" prefWidth="298.0">
+               <children>
+                  <Label prefHeight="36.0" prefWidth="97.0" text="Address" />
+                  <TextField fx:id="addressTextField" prefHeight="25.0" prefWidth="271.0" style="-fx-border-color: #2994e6;">
+                     <HBox.margin>
+                        <Insets top="8.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <VBox layoutX="311.0" layoutY="310.0" prefHeight="146.0" prefWidth="319.0">
+               <children>
+                  <Label prefHeight="32.0" prefWidth="184.0" text=" Profile Photo" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="chooseProfileButton" mnemonicParsing="false" onAction="#handlechooseProfileButton" prefHeight="46.0" prefWidth="128.0" text="Choose Profile Photo" />
+                        <ImageView fx:id="chosenProfileImage" fitHeight="96.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: blue;">
+                           <image>
+                              <Image url="@person.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button fx:id="goBackButton1" layoutX="557.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleGoBackButtonClick1" prefHeight="48.0" prefWidth="112.0" text="Go Back" />
+            <ListView fx:id="listView1" layoutX="30.0" layoutY="38.0" prefHeight="395.0" prefWidth="251.0" />
+            <Label layoutX="30.0" layoutY="12.0" prefHeight="26.0" prefWidth="243.0" text="All Records" />
+            <Button fx:id="viewSlectedItem" layoutX="30.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleViewSelectedItem" prefHeight="48.0" prefWidth="128.0" text="View Selected Item" />
+            <Button fx:id="clearFormButton" layoutX="426.0" layoutY="456.0" mnemonicParsing="false" onAction="#handleClearForm" prefHeight="48.0" prefWidth="112.0" text="Clear Form" />
+         </children>
+      </Pane>
+   </children>
+</StackPane>
