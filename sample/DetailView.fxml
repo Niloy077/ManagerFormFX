@@ -10,7 +10,11 @@
    <children>
       <AnchorPane prefHeight="453.0" prefWidth="723.0">
          <children>
-            <ImageView fx:id="profileImageLabel" fitHeight="184.0" fitWidth="200.0" layoutX="51.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="profileImageLabel" fitHeight="184.0" fitWidth="200.0" layoutX="51.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" >
+               <image>
+                  <Image url="@../images/person.png" />
+               </image>
+            </ImageView>
             <VBox layoutX="310.0" layoutY="69.0" prefHeight="292.0" prefWidth="398.0">
                <children>
                   <Label fx:id="fullNamelabel" prefHeight="55.0" prefWidth="400.0" text="Full Name : ">

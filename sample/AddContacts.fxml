@@ -86,7 +86,7 @@
                         <Button fx:id="chooseProfileButton" mnemonicParsing="false" onAction="#handlechooseProfileButton" prefHeight="46.0" prefWidth="128.0" text="Choose Profile Photo" />
                         <ImageView fx:id="chosenProfileImage" fitHeight="96.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: blue;">
                            <image>
-                              <Image url="@person.png" />
+                              <Image url="@../images/person.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="20.0" />
