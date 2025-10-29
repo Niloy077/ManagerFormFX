@@ -36,4 +36,4 @@ Contacts Manager is a desktop application built with JavaFX that allows users to
   - Focus management prevents unwanted blue outlines on buttons.
   - Error messages are displayed using alert dialogues.
 
-## Project Structure
+
