@@ -1,7 +1,7 @@
-# Contacts Manager
+# ManagerFormFX
 
 ## Overview
-Contacts Manager is a desktop application built with JavaFX that allows users to manage personal contacts efficiently. Users can **add, view, and delete contacts**, with all information stored securely in a SQLite database. The application features a modern and intuitive UI with multiple views for different functionalities.
+ManagerFormFX is a desktop application built with JavaFX that allows users to manage personal contacts efficiently. Users can **add, view, and delete contacts**, with all information stored securely in a SQLite database. The application features a modern and intuitive UI with multiple views for different functionalities.
 
 ## Sample View
 <img src="images/1.png" alt="Contacts Manager Screenshot" width="600">
